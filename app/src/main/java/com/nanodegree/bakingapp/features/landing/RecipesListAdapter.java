@@ -1,9 +1,6 @@
-package com.nanodegree.bakingapp.landing;
+package com.nanodegree.bakingapp.features.landing;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +13,21 @@ import com.bumptech.glide.request.RequestOptions;
 import com.nanodegree.bakingapp.R;
 import com.nanodegree.bakingapp.models.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.RecipesListViewHolder> {
 
-    private List<Recipe> recipeList;
+    private List<Recipe> recipeList = new ArrayList<>();
     private Context context;
 
-    public RecipesListAdapter(List<Recipe> recipeList, Context context) {
-        this.recipeList = recipeList;
+    public RecipesListAdapter(Context context) {
         this.context = context;
     }
 
@@ -63,8 +63,15 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
         return recipeList.size();
     }
 
+
+    public  void setItem(List<Recipe>recipeList){
+        this.recipeList = recipeList;
+        notifyDataSetChanged();
+    }
+
     class RecipesListViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.recipe_imageview) AppCompatImageView recipeImageView;
+        @BindView(R.id.recipe_imageview)
+        AppCompatImageView recipeImageView;
         @BindView(R.id.recipe_name_textView) TextView recipeNameTextView;
 
         RecipesListViewHolder(View view) {
