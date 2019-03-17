@@ -58,9 +58,9 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
         recipesListViewHolder.itemView.setOnClickListener(v -> {
            Intent intent = new Intent(context, StepListActivity.class);
            intent.putParcelableArrayListExtra(Constants.INGREDIENTS_KEY, (ArrayList<? extends Parcelable>) recipe.getIngredients());
+           intent.putParcelableArrayListExtra(Constants.STEPS_KEY, (ArrayList<? extends Parcelable>) recipe.getSteps());
            context.startActivity(intent);
         });
-
     }
 
     @Override
