@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.nanodegree.bakingapp.R;
 import com.nanodegree.bakingapp.models.Step;
 import com.nanodegree.bakingapp.utils.Constants;
@@ -24,12 +24,12 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
     private int maxPosition;
     private Boolean mTwoPane;
 
-   ExoPlayer video;
-    TextView shortDescriptionTextView;
-   TextView descriptionTextView;
-   Button nextButton;
-   Button previousButton;
-   LinearLayout buttonContainer;
+    private PlayerView video;
+    private TextView shortDescriptionTextView;
+    private TextView descriptionTextView;
+    private Button nextButton;
+    private Button previousButton;
+    private LinearLayout buttonContainer;
 
     public StepDetailFragment() {
     }
@@ -64,7 +64,7 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
 
     private void setView(View view) {
 
-        ExoPlayer video = view.findViewById(R.id.video);
+        video = view.findViewById(R.id.video);
         buttonContainer = view.findViewById(R.id.button_container);
         shortDescriptionTextView = view.findViewById(R.id.short_description_textView);
         descriptionTextView = view.findViewById(R.id.description_textview);
@@ -105,4 +105,5 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
             default:
         }
     }
+
 }
