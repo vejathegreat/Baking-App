@@ -1,17 +1,20 @@
 package com.nanodegree.bakingapp.features.landing;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.nanodegree.bakingapp.R;
+import com.nanodegree.bakingapp.features.steps.StepListActivity;
 import com.nanodegree.bakingapp.models.Recipe;
+import com.nanodegree.bakingapp.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,9 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
                 .into(recipesListViewHolder.recipeImageView);
 
         recipesListViewHolder.itemView.setOnClickListener(v -> {
-            Toast.makeText(context, "Start Master Flow", Toast.LENGTH_SHORT).show();
+           Intent intent = new Intent(context, StepListActivity.class);
+           intent.putParcelableArrayListExtra(Constants.INGREDIENTS_KEY, (ArrayList<? extends Parcelable>) recipe.getIngredients());
+           context.startActivity(intent);
         });
 
     }

@@ -3,7 +3,6 @@ package com.nanodegree.bakingapp.features.landing;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Parcelable;
 
 import com.nanodegree.bakingapp.R;
 
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setUpViewModel();
         recipesViewModel.retrieveRecipes();
         setUpRecyclerView();
-
     }
 
     private void setUpRecyclerView() {
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         recipesListAdapter = new RecipesListAdapter(this);
 
         if(!isTablet(this)){
-
             if(orientation  == Configuration.ORIENTATION_PORTRAIT){
                 recipeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -59,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private void setUpViewModel() {
         recipesViewModel = ViewModelProviders.of(this).get(RecipeListViewModel.class);
         observeRecipes();
-
     }
 
     private void observeRecipes() {
