@@ -3,18 +3,19 @@ package com.nanodegree.bakingapp.features.steps;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.nanodegree.bakingapp.R;
+import com.nanodegree.bakingapp.features.landing.MainActivity;
 import com.nanodegree.bakingapp.models.Ingredient;
 import com.nanodegree.bakingapp.models.Step;
-import com.nanodegree.bakingapp.utils.Constants;
-
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -22,8 +23,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.nanodegree.bakingapp.utils.Constants.INGREDIENTS_KEY;
+import static com.nanodegree.bakingapp.utils.Constants.STEPS_KEY;
 import static com.nanodegree.bakingapp.utils.Converters.units;
-
 
 public class StepListActivity extends AppCompatActivity {
 
@@ -48,11 +50,14 @@ public class StepListActivity extends AppCompatActivity {
         if (findViewById(R.id.step_detail_container) != null) {
             mTwoPane = true;
         }
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         Intent intent = getIntent();
-        if (intent.getExtras().getParcelableArrayList(Constants.INGREDIENTS_KEY) != null) {
-            ingredientList = intent.getExtras().getParcelableArrayList(Constants.INGREDIENTS_KEY);
-            stepList = intent.getExtras().getParcelableArrayList(Constants.STEPS_KEY);
+        if (intent.getExtras() != null) {
+            ingredientList = intent.getExtras().getParcelableArrayList(INGREDIENTS_KEY);
+            stepList = intent.getExtras().getParcelableArrayList(STEPS_KEY);
             setupIngredientsTable();
         }
 
@@ -98,5 +103,15 @@ public class StepListActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(stepsAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            navigateUpTo(new Intent(this, MainActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

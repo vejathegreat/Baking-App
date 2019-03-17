@@ -22,12 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.ViewHolder> {
 
-
     private List<Step> stepList;
     private Boolean mTwoPane;
     private StepListActivity stepListActivity;
 
-    public StepListAdapter(List<Step> stepList, Boolean mTwoPane, StepListActivity stepListActivity) {
+    StepListAdapter(List<Step> stepList, Boolean mTwoPane, StepListActivity stepListActivity) {
         this.stepList = stepList;
         this.mTwoPane = mTwoPane;
         this.stepListActivity = stepListActivity;
@@ -51,6 +50,7 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.ViewHo
                 Bundle arguments = new Bundle();
                 arguments.putParcelableArrayList(Constants.STEPS_KEY, (ArrayList<? extends Parcelable>) stepList);
                 arguments.putInt(Constants.LIST_POSITION, position);
+                arguments.putBoolean(Constants.TWO_PANE, mTwoPane);
                 StepDetailFragment fragment = new StepDetailFragment();
                 fragment.setArguments(arguments);
                 stepListActivity.getSupportFragmentManager().beginTransaction()
@@ -61,10 +61,10 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.ViewHo
                 Intent intent = new Intent(context, StepDetailActivity.class);
                 intent.putExtra(Constants.LIST_POSITION, position);
                 intent.putParcelableArrayListExtra(Constants.STEPS_KEY, (ArrayList<? extends Parcelable>) stepList);
+                intent.putExtra(Constants.TWO_PANE, mTwoPane);
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
