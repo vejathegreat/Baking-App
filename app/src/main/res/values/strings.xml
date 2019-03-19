@@ -12,5 +12,7 @@
     <string name="ingredient">Ingredient</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="error_state">Oops that\'s not good! Press retry or try again later!</string>
+    <string name="retry">Retry</string>
 
 </resources>

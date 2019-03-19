@@ -20,11 +20,6 @@ public class StepDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
             arguments.putParcelableArrayList(Constants.STEPS_KEY,

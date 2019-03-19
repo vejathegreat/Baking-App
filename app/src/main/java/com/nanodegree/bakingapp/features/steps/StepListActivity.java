@@ -2,6 +2,7 @@ package com.nanodegree.bakingapp.features.steps;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,9 @@ import com.nanodegree.bakingapp.R;
 import com.nanodegree.bakingapp.features.landing.MainActivity;
 import com.nanodegree.bakingapp.models.Ingredient;
 import com.nanodegree.bakingapp.models.Step;
+import com.nanodegree.bakingapp.utils.Constants;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -47,24 +51,44 @@ public class StepListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        if (findViewById(R.id.step_detail_container) != null) {
-            mTwoPane = true;
-        }
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            ingredientList = intent.getExtras().getParcelableArrayList(INGREDIENTS_KEY);
-            stepList = intent.getExtras().getParcelableArrayList(STEPS_KEY);
-            setupIngredientsTable();
+
+        if (findViewById(R.id.step_detail_container) != null) {
+            mTwoPane = true;
+            openVideoDetails();
         }
 
+            if(savedInstanceState != null){
+                ingredientList = savedInstanceState.getParcelableArrayList(INGREDIENTS_KEY);
+                stepList = savedInstanceState.getParcelableArrayList(STEPS_KEY);
+            }else{
+                Intent intent = getIntent();
+                if (intent.getExtras() != null) {
+                    ingredientList = intent.getExtras().getParcelableArrayList(INGREDIENTS_KEY);
+                    stepList = intent.getExtras().getParcelableArrayList(STEPS_KEY);
+                }
+            }
+
+        setupIngredientsTable();
         View recyclerView = findViewById(R.id.step_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
+    }
+
+    private void openVideoDetails() {
+        Bundle arguments = new Bundle();
+        arguments.putParcelableArrayList(Constants.STEPS_KEY, (ArrayList<? extends Parcelable>) stepList);
+        arguments.putInt(Constants.LIST_POSITION, 0);
+        arguments.putBoolean(Constants.TWO_PANE, mTwoPane);
+        StepDetailFragment fragment = new StepDetailFragment();
+        fragment.setArguments(arguments);
+        this.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.step_detail_container, fragment)
+                .commit();
     }
 
     private void setupIngredientsTable() {
@@ -100,7 +124,7 @@ public class StepListActivity extends AppCompatActivity {
         LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(stepsLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(stepsAdapter);
     }

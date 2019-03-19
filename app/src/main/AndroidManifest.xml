@@ -25,32 +25,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.nanodegree.bakingapp.features.steps.StepListActivity" />
         </activity>
-        <activity
-            android:name=".features.stepDetails.ItemListActivity"
-            android:label="@string/title_item_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".features.stepDetails.ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".features.stepDetails.ItemListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nanodegree.bakingapp.features.stepDetails.ItemListActivity" />
-        </activity>
-        <activity
-            android:name=".features.recipeDetail.RecipeDetailsListActivity"
-            android:label="@string/title_item_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".features.recipeDetail.RecipeDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".features.recipeDetail.RecipeDetailsListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nanodegree.bakingapp.features.recipeDetail.RecipeDetailsListActivity" />
-        </activity>
         <activity android:name=".features.landing.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

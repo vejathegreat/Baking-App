@@ -92,7 +92,7 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
 
     }
 
-    void openVideoFragment()
+    private void openVideoFragment()
     {
         VideoFragment videoFragment = new VideoFragment();
         Bundle bundle = new Bundle();
@@ -101,7 +101,6 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.media_container, videoFragment).commit();
     }
-
 
     @Override
     public void onClick(View v) {
