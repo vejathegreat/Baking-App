@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.nanodegree.bakingapp.R;
 import com.nanodegree.bakingapp.models.Step;
 import com.nanodegree.bakingapp.utils.Constants;
@@ -16,15 +15,15 @@ import com.nanodegree.bakingapp.utils.Constants;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class StepDetailFragment extends Fragment implements View.OnClickListener {
 
     private List<Step> stepList;
+    private Step step;
     private int currentPosition;
     private int maxPosition;
-    private Boolean mTwoPane;
 
-    private PlayerView video;
     private TextView shortDescriptionTextView;
     private TextView descriptionTextView;
     private Button nextButton;
@@ -44,12 +43,13 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.step_detail, container, false);
         Bundle bundle = getArguments();
+
         setView(rootView);
 
         if(bundle != null){
             currentPosition = (int) bundle.get(Constants.LIST_POSITION);
             stepList = bundle.getParcelableArrayList(Constants.STEPS_KEY);
-            mTwoPane = (Boolean) bundle.get(Constants.TWO_PANE);
+            Boolean mTwoPane = (Boolean) bundle.get(Constants.TWO_PANE);
             maxPosition = stepList.size();
 
             if(mTwoPane)
@@ -64,7 +64,6 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
 
     private void setView(View view) {
 
-        video = view.findViewById(R.id.video);
         buttonContainer = view.findViewById(R.id.button_container);
         shortDescriptionTextView = view.findViewById(R.id.short_description_textView);
         descriptionTextView = view.findViewById(R.id.description_textview);
@@ -73,20 +72,34 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
         previousButton = view.findViewById(R.id.previous_button);
         previousButton.setOnClickListener(this);
     }
-    private void updateView() {
-        Step step = stepList.get(currentPosition);
 
-        if(currentPosition == 0){
+    private void updateView() {
+        step = stepList.get(currentPosition);
+
+        if (currentPosition == 0) {
             previousButton.setVisibility(View.GONE);
-        }else if(currentPosition + 1 == maxPosition){
+        } else if (currentPosition + 1 == maxPosition) {
             nextButton.setVisibility(View.GONE);
-        }else {
+        } else {
             previousButton.setVisibility(View.VISIBLE);
             nextButton.setVisibility(View.VISIBLE);
         }
 
         shortDescriptionTextView.setText(step.getShortDescription());
         descriptionTextView.setText(step.getDescription());
+
+        openVideoFragment();
+
+    }
+
+    void openVideoFragment()
+    {
+        VideoFragment videoFragment = new VideoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.STEP_SINGLE, step);
+        videoFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.media_container, videoFragment).commit();
     }
 
 
@@ -105,5 +118,4 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
             default:
         }
     }
-
 }
