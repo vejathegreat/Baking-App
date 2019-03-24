@@ -12,6 +12,7 @@ import com.nanodegree.bakingapp.R;
 import com.nanodegree.bakingapp.models.Step;
 import com.nanodegree.bakingapp.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
@@ -19,7 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class StepDetailFragment extends Fragment implements View.OnClickListener {
 
-    private List<Step> stepList;
+    private List<Step> stepList = new ArrayList<>();
     private Step step;
     private int currentPosition;
     private int maxPosition;
@@ -35,7 +36,11 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        currentPosition = (int) bundle.get(Constants.LIST_POSITION);
+        stepList = bundle.getParcelableArrayList(Constants.STEPS_KEY);
     }
 
     @Override
@@ -50,14 +55,16 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
             currentPosition = (int) bundle.get(Constants.LIST_POSITION);
             stepList = bundle.getParcelableArrayList(Constants.STEPS_KEY);
             Boolean mTwoPane = (Boolean) bundle.get(Constants.TWO_PANE);
-            maxPosition = stepList.size();
-
+                
             if(mTwoPane)
             {
                 buttonContainer.setVisibility(View.GONE);
             }
 
-            updateView();
+            if (stepList != null) {
+                maxPosition = stepList.size();
+                updateView();
+            }
         }
         return rootView;
     }
@@ -89,7 +96,6 @@ public class StepDetailFragment extends Fragment implements View.OnClickListener
         descriptionTextView.setText(step.getDescription());
 
         openVideoFragment();
-
     }
 
     private void openVideoFragment()

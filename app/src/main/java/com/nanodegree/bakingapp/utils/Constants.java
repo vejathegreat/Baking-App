@@ -5,7 +5,6 @@ public class Constants {
     public static final String STEPS_KEY = "steps";
     public static final String LIST_POSITION = "position";
     public static final String TWO_PANE = "mTwoPane";
-    public static final String RECIPE = "recipe";
 
     //video constants
     public static final String STEP_URI =  "step_uri";
