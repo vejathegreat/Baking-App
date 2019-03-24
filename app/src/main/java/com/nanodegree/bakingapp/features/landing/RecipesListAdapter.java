@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.nanodegree.bakingapp.R;
 import com.nanodegree.bakingapp.features.steps.StepListActivity;
+import com.nanodegree.bakingapp.features.widget.AppWidgetService;
 import com.nanodegree.bakingapp.models.Recipe;
 import com.nanodegree.bakingapp.utils.Constants;
 
@@ -59,6 +60,8 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
            Intent intent = new Intent(context, StepListActivity.class);
            intent.putParcelableArrayListExtra(Constants.INGREDIENTS_KEY, (ArrayList<? extends Parcelable>) recipe.getIngredients());
            intent.putParcelableArrayListExtra(Constants.STEPS_KEY, (ArrayList<? extends Parcelable>) recipe.getSteps());
+
+            AppWidgetService.updateWidget(context.getApplicationContext(), recipe);
            context.startActivity(intent);
         });
     }

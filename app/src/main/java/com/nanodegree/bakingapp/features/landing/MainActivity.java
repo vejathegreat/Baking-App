@@ -9,12 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.nanodegree.bakingapp.R;
-import com.nanodegree.bakingapp.models.Recipe;
-
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -83,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             recipesListAdapter.setItem(recipeList);
             errorState.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
+            recipeRecyclerView.setVisibility(View.VISIBLE);
         });
     }
 

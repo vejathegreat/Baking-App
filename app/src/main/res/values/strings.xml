@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Baking App</string>
-    <string name="title_item_list">Items</string>
-    <string name="title_item_detail">Item Detail</string>
     <string name="ingredients">Ingredients</string>
     <string name="point2">.</string>
     <string name="step">Steps</string>
@@ -14,5 +12,6 @@
     <string name="previous">Previous</string>
     <string name="error_state">Oops that\'s not good! Press retry or try again later!</string>
     <string name="retry">Retry</string>
-
+    <string name="widget_recipe_key">widget_recipe_key</string>
+    <string name="data_not_available">Data Not Available</string>
 </resources>

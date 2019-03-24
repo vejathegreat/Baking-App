@@ -3,43 +3,56 @@ package com.nanodegree.bakingapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class Step implements Parcelable {
-
-    @SerializedName("id")
-    @Expose
-    private long id;
-
-    @SerializedName("shortDescription")
-    @Expose
-    private String shortDescription;
-
-    @SerializedName("description")
-    @Expose
-    private String description;
-
-    @SerializedName("videoURL")
-    @Expose
+    @JsonProperty("videoURL")
     private String videoURL;
-
-    @SerializedName("thumbnailURL")
-    @Expose
+    @JsonProperty("description")
+    private String description;
+    @JsonProperty("id")
+    private int id;
+    @JsonProperty("shortDescription")
+    private String shortDescription;
+    @JsonProperty("thumbnailURL")
     private String thumbnailURL;
 
-    protected Step(Parcel in) {
-        id = in.readLong();
-        shortDescription = in.readString();
-        description = in.readString();
-        videoURL = in.readString();
-        thumbnailURL = in.readString();
+    public Step() {
+        this.videoURL = "";
+        this.description = "";
+        this.id = 0;
+        this.shortDescription = "";
+        this.thumbnailURL = "";
     }
 
-    public static final Creator<Step> CREATOR = new Creator<Step>() {
+    // Parcelable
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.videoURL);
+        dest.writeString(this.description);
+        dest.writeInt(this.id);
+        dest.writeString(this.shortDescription);
+        dest.writeString(this.thumbnailURL);
+    }
+
+    protected Step(Parcel in) {
+        this.videoURL = in.readString();
+        this.description = in.readString();
+        this.id = in.readInt();
+        this.shortDescription = in.readString();
+        this.thumbnailURL = in.readString();
+    }
+
+    public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
         @Override
-        public Step createFromParcel(Parcel in) {
-            return new Step(in);
+        public Step createFromParcel(Parcel source) {
+            return new Step(source);
         }
 
         @Override
@@ -48,58 +61,35 @@ public class Step implements Parcelable {
         }
     };
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    // Getters
+    public String getVideoURL() {
+        return videoURL;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public int getId() {
+        return id;
     }
 
-    public String getVideoURL() {
-        return videoURL;
-    }
-
-    public void setVideoURL(String videoURL) {
-        this.videoURL = videoURL;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
     public String getThumbnailURL() {
         return thumbnailURL;
     }
 
-    public void setThumbnailURL(String thumbnailURL) {
-        this.thumbnailURL = thumbnailURL;
-    }
-
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeString(shortDescription);
-        dest.writeString(description);
-        dest.writeString(videoURL);
-        dest.writeString(thumbnailURL);
+    public String toString() {
+        return "Step{" +
+                "videoURL='" + videoURL + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", thumbnailURL='" + thumbnailURL + '\'' +
+                '}';
     }
 }
-
